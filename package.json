@@ -1,0 +1,32 @@
+{
+  "name": "serve-index-cli",
+  "version": "1.0.0",
+  "description": "Serve a directory listing from the cli (using serve-index)",
+  "main": "bin/serve-index",
+  "bin": {
+    "serve-index": "bin/serve-index"
+  },
+  "scripts": {
+    "start": "node bin/serve-index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bhdouglass/serve-index-cli.git"
+  },
+  "keywords": [
+    "directory",
+    "index"
+  ],
+  "author": "Brian Douglass",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/bhdouglass/serve-index-cli/issues"
+  },
+  "homepage": "https://github.com/bhdouglass/serve-index-cli#readme",
+  "dependencies": {
+    "express": "^4.14.0",
+    "minimist": "^1.2.0",
+    "serve-index": "^1.8.0"
+  },
+  "preferGlobal": true
+}

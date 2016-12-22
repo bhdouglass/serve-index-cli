@@ -1,0 +1,40 @@
+#!/usr/bin/env node
+
+var express = require('express');
+var serveIndex = require('serve-index');
+var minimist = require('minimist');
+
+var args = minimist(process.argv.slice(2), {
+    default: {
+        port: 3000,
+        ip: '127.0.0.1',
+        title: 'Photo Gallery',
+        dir: '.',
+        icons: true,
+        hidden: false,
+        stylesheet: null,
+        template: null,
+        view: 'tiles'
+    },
+    booleans: ['icons', 'hidden'],
+    alias: {
+        p: 'port',
+        i: 'ip',
+        t: 'title',
+        d: 'dir',
+        v: 'view,'
+    }
+});
+
+var app = express();
+app.use('/', serveIndex(args.dir, {
+    icons: args.icons,
+    hidden: args.hidden,
+    stylesheet: args.stylesheet,
+    template: args.template,
+    view: args.view,
+}))
+app.use('/', express.static(args.dir));
+
+app.listen(args.port, args.ip);
+console.log('serve-index serving a directory index for "' + args.dir + '" on http://' + args.ip + ':' + args.port);
