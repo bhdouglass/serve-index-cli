@@ -14,7 +14,8 @@ var args = minimist(process.argv.slice(2), {
         hidden: false,
         stylesheet: null,
         template: null,
-        view: 'tiles'
+        view: 'tiles',
+        route: '/',
     },
     booleans: ['icons', 'hidden'],
     alias: {
@@ -22,19 +23,20 @@ var args = minimist(process.argv.slice(2), {
         i: 'ip',
         t: 'title',
         d: 'dir',
-        v: 'view,'
+        v: 'view',
+        r: 'route',
     }
 });
 
 var app = express();
-app.use('/', serveIndex(args.dir, {
+app.use(args.route, serveIndex(args.dir, {
     icons: args.icons,
     hidden: args.hidden,
     stylesheet: args.stylesheet,
     template: args.template,
     view: args.view,
 }))
-app.use('/', express.static(args.dir));
+app.use(args.route, express.static(args.dir));
 
 app.listen(args.port, args.ip);
-console.log('serve-index serving a directory index for "' + args.dir + '" on http://' + args.ip + ':' + args.port);
+console.log('serve-index serving a directory index for "' + args.dir + '" on http://' + args.ip + ':' + args.port + args.route);
