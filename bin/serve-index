@@ -48,7 +48,15 @@ if (args['json-list']) {
             }
             else {
                 files.sort();
-                res.json(files);
+                var dir = path.resolve(args.dir);
+
+                var list = [];
+                files.forEach(function(file) {
+                    file = path.resolve(file).replace(dir, '');
+                    list.push(path.join(args.route, file));
+                });
+
+                res.json(list);
             }
         });
     });
