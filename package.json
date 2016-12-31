@@ -1,6 +1,6 @@
 {
   "name": "serve-index-cli",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Serve a directory listing from the cli (using serve-index)",
   "main": "bin/serve-index",
   "bin": {
@@ -26,6 +26,7 @@
   "dependencies": {
     "express": "^4.14.0",
     "minimist": "^1.2.0",
+    "recursive-readdir": "^2.1.0",
     "serve-index": "^1.8.0"
   },
   "preferGlobal": true

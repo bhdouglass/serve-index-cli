@@ -22,6 +22,9 @@ All args are optional
 
 For more information about the options, check the [serve-index](https://github.com/expressjs/serve-index) configuration options.
 
+serve-index-cli also supports a `--json-list` flag that will generate a list.json
+that contains a list of all the files in the directory tree.
+
 ## License
 
 Copyright (C) 2016 [Brian Douglass](http://bhdouglass.com/)

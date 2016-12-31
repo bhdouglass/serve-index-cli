@@ -3,6 +3,9 @@
 var express = require('express');
 var serveIndex = require('serve-index');
 var minimist = require('minimist');
+var recursive = require('recursive-readdir');
+var path = require('path');
+var fs = require('fs');
 
 var args = minimist(process.argv.slice(2), {
     default: {
@@ -16,8 +19,9 @@ var args = minimist(process.argv.slice(2), {
         template: null,
         view: 'tiles',
         route: '/',
+        'json-list': false,
     },
-    booleans: ['icons', 'hidden'],
+    booleans: ['icons', 'hidden', 'json-list'],
     alias: {
         p: 'port',
         i: 'ip',
@@ -28,7 +32,28 @@ var args = minimist(process.argv.slice(2), {
     }
 });
 
+function ignore(file, stats) {
+    return file && !args.hidden && path.basename(file)[0] == '.';
+}
+
 var app = express();
+if (args['json-list']) {
+    app.get(path.join(args.route, 'list.json'), function(req, res) {
+        recursive(args.dir, [ignore], function(err, files) {
+            if (err) {
+                console.error(err);
+
+                res.status(500);
+                res.send();
+            }
+            else {
+                files.sort();
+                res.json(files);
+            }
+        });
+    });
+}
+
 app.use(args.route, serveIndex(args.dir, {
     icons: args.icons,
     hidden: args.hidden,
